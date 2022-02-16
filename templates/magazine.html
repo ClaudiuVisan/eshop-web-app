@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Magazine</title>
+     <link rel="stylesheet" href = "{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i">
+</head>
+
+<body>
+    <header class="text-center text-white masthead" style="padding-top: 50px;padding-bottom: 50px;">
+        <div class="masthead-content">
+            <div class="container">
+                <h1 class="masthead-heading mb-0">Magazine</h1>
+                <h2 class="masthead-subheading mb-0"></h2>
+            </div>
+        </div>
+        <div class="bg-circle-1 bg-circle"></div>
+        <div class="bg-circle-2 bg-circle"></div>
+        <div class="bg-circle-3 bg-circle"></div>
+        <div class="bg-circle-4 bg-circle"></div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Oras</th>
+                            <th>Strada</th>
+                            <th>Produse</th>
+                            <th>Comenzi</th>
+                            <th style="text-align: center">Editare</th>
+                            <th style="text-align: center">Stergere</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for mag in magazine %}
+                        <tr>
+                            <td>{{mag.Oras}}</td>
+                            <td>{{mag.Strada}}</td>
+                            <td>{{mag.produs}}</td>
+                            <td>{{mag.comanda}}</td>
+                            <td style="text-align: center">
+                             <button class="btn btn-primary" onclick = "window.location.href='{% url 'editare_magazin'  mag.id%}'">EDITEAZA</button>
+                            </td>
+                            <td style="text-align: center">
+                              <form action="{% url 'stergere_magazin' mag.id %}" method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                              <button class="btn btn-danger" type="submit">STERGE</button>
+                              </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
